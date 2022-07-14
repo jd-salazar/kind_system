@@ -1,0 +1,1 @@
+modbus-eaton 10.160.200.98 502 jotlog WAL-ATS_Eaton_Power_Meter pxm2k-modbus-uid-0.xlsx HostName=bs-pi-poc.azure-devices.net;DeviceId=pi-clifton;SharedAccessKey=1Dbch6EdLTGfKX4kngXy9cgysrBxw9tKX1XnghrYiDs= 1 1

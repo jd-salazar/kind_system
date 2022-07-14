@@ -1,6 +1,7 @@
 from datetime import datetime
 import sys
 import os
+import subprocess
 
 def generate_timestamp():
     now = datetime.utcnow()
