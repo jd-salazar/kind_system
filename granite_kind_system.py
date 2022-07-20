@@ -2,6 +2,7 @@ from DeviceManager import DeviceManager
 from helpers import generate_timestamp as timestamp
 from CloudConnection import CloudConnection
 import sys, os
+import pretty_errors
 
 fault_flag_dict = {0: "Nominal/No fault", 1: "Excessive reconnection attempts", 2: "Unimplemented logic reached", 3: "Resource init error"}
 
@@ -14,7 +15,7 @@ device = DeviceManager(
     kind = params[1], 
     addr = params[2], 
     port = params[3], 
-    logpath = timestamp() + params[4], 
+    logpath = str(timestamp()) + params[4], 
     nickname = params[5],
     resourcepath = params[6])
 
