@@ -59,4 +59,4 @@ def fetch_sel_dictionary(resource, client):
    result = dict()
    for n,i in enumerate(raw_data):
       result[raw_data[n][0]] = rules[n] / raw_data[n][1]
-    return result
+   return result

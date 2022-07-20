@@ -7,6 +7,7 @@ fault_flag_dict = {0: "Nominal/No fault", 1: "Excessive reconnection attempts", 
 
 f = open(sys.argv[1], 'r')
 params = f.readline().split()
+print(params)
 f.close()
 
 device = DeviceManager(
