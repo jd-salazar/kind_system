@@ -61,17 +61,17 @@ device = DeviceManager(
 
 '''
 
-device.jot(True, timestamp(), "~~~New Session~~~\n"f'[{self.nickname}] {self.kind} Device Manager script spawned')
+device.jot(True, timestamp(), "~~~New Session~~~\n"f'[{device.nickname}] {device.kind} Device Manager script spawned')
 if device.start_connection():
     try:
         device.init_resource()
     except Exception as e:
-        device.jot(True, timestamp(), f'[{self.nickname}] {self.kind} Device resource init failed. Check directories.')
+        device.jot(True, timestamp(), f'[{device.nickname}] {device.kind} Device resource init failed. Check directories.')
         device.fault_flag = 3
 
 while device.fault_flag == 0:
     d = device.fetch_data()
     cloud.send_message_to_azure(d)
 
-device.jot(True, timestamp(), f'[{self.nickname}] {self.kind} Fault: {fault_flag_dict[device.fault_flag]}')
+device.jot(True, timestamp(), f'[{device.nickname}] {device.kind} Fault: {fault_flag_dict[device.fault_flag]}')
 device.log.close()
