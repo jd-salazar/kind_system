@@ -11,7 +11,7 @@ class CloudConnection:
         self.retry_timer = 1
 
         # ~~~runtime derived~~~ #
-        self.device_client
+        self.device_client = None
 
 
     def init_device_client(self):
