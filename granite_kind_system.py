@@ -12,17 +12,17 @@ print(params)
 f.close()
 
 device = DeviceManager(
-    kind = params[1], 
-    addr = params[2], 
-    port = params[3], 
-    logpath = str(timestamp()) + params[4], 
-    nickname = params[5],
-    resourcepath = params[6])
+    kind = params[0], 
+    addr = params[1], 
+    port = params[2], 
+    logpath = str(timestamp()) + params[3], 
+    nickname = params[4],
+    resourcepath = params[5])
 
 cloud = CloudConnection(
-    device_connection_string = params[7],
-    sleep_timer = params[8],
-    retry_timer = params[9])
+    device_connection_string = params[6],
+    sleep_timer = params[7],
+    retry_timer = params[8])
 
 '''
 Examples
