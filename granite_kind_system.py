@@ -66,7 +66,7 @@ if device.start_connection():
     try:
         device.init_resource()
     except Exception as e:
-        device.jot(True, timestamp(), f'[{device.nickname}] {device.kind} Device resource init failed. Check directories.')
+        device.jot(True, timestamp(), f'[{device.nickname}] {device.kind} Device resource init failed due to exception {e}. Check directories.')
         device.fault_flag = 3
 
 while device.fault_flag == 0:
