@@ -94,4 +94,4 @@ class DeviceManager:
         except Exception as e:
             self.jot(True, generate_timestamp(), f'[{self.nickname}] {self.kind} [WARNING] Connection issue due to {e}, restoring...')
             self.client = None
-            self.start_connection(self, attempts=1000, sleeptimer = .1)  
+            self.start_connection(attempts=1000, sleeptimer = .1)
