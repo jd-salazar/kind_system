@@ -44,7 +44,7 @@ class DeviceManager:
             #terminates comma seperated log entry
             entry = entry[:-1]
             entry += '\n'
-        log.write(entry)
+        self.log.write(entry)
 
     def start_connection(self, attempts=1000, sleeptimer = 120):
         #the default timer is 2 minutes to give breathing room for crontab
