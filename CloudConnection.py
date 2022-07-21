@@ -35,7 +35,7 @@ class CloudConnection:
 
         # Check if valid json if not, make it valid
         
-        self.device_client.send_message(json.dumps(message))
+        self.device_client.send_message(json.dumps(message), messageId='piguac-0')
         # if messageId:
         #     print(f"messageId: {messageId} successfully sent")
         # else:
