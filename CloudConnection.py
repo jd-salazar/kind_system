@@ -22,8 +22,6 @@ class CloudConnection:
             self.device_connection_string
         )
 
-        self.messageId = None
-
         self.device_client = device_client
         self.device_client.connect()
 
@@ -40,7 +38,7 @@ class CloudConnection:
 
         # Check if valid json if not, make it valid
 
-        self.device_client.send_message(json.dumps(message), self.messageId)
+        self.device_client.send_message(json.dumps(message))
 
         if self.messageId:
             print(f"messageId: {self.messageId} successfully sent")
