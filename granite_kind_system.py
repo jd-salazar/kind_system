@@ -15,7 +15,7 @@ device = DeviceManager(
     kind = params[0], 
     addr = params[1], 
     port = params[2], 
-    logpath = str(timestamp()) + params[3], 
+    logpath = params[3], 
     nickname = params[4],
     resourcepath = params[5])
 

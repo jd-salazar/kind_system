@@ -47,15 +47,22 @@ class DeviceManager:
             entry += '\n'
         self.log.write(entry)
 
+    def modbus_connection(self):
+        self.client = ModbusClient(self.addr, port = self.port)
+        self.client.connect()
+            
+    def can_connection(self):
+        self.client = can_client(interface = self.kind, channel = self.port, receive_own_messages = True)
+
     def start_connection(self, attempts=1000, sleeptimer = 120):
         #the default timer is 2 minutes to give breathing room for crontab
         #when we need to hurry and start it quickly, we can make it arbitarily short
         for i in range(0, attempts):
             try:
                 if self.kind in self.modbus_kinds:
-                    modbus_connection()
+                    self.modbus_connection()
                 if self.kind in self.can_kinds:
-                    can_connection()
+                    self.can_connection()
                 self.jot(True, generate_timestamp(), f'[{self.nickname}] {self.kind} Connection successful on attempt {i}')
                 self.fault_flag = 0
                 return True
@@ -65,12 +72,6 @@ class DeviceManager:
         self.fault_flag = 1
         return False
 
-    def modbus_connection(self):
-        self.client = ModbusClient(self.addr, port = self.port)
-        self.client.connect()
-            
-    def can_connection(self):
-        self.client = can_client(interface = self.kind, channel = self.port, receive_own_messages = True)
 
     def init_resource(self):
         if self.kind == 'modbus-eaton':
@@ -89,7 +90,8 @@ class DeviceManager:
             if self.kind == 'pcan':
                 self.jot(True, timestamp(), f'[{self.nickname}] {self.kind} PCAN is meant to be used actively in the interpreter right now')
                 #to-do: make config file for autonomous CAN activity
+                #preliminary evidence that there will need to be "Passive Mode" and "Active Mode"
         except Exception as e:
             self.jot(True, generate_timestamp(), f'[{self.nickname}] {self.kind} [WARNING] Connection issue due to {e}, restoring...')
             self.client = None
-            start_connection(self, attempts=1000, sleeptimer = .1)  
+            self.start_connection(self, attempts=1000, sleeptimer = .1)  
