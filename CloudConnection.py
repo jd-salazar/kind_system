@@ -23,7 +23,7 @@ class CloudConnection:
         self.device_client.connect()
 
 
-    def send_message_to_azure(message, messageId):
+    def send_message_to_azure(self, message, messageId):
         """Checks if the message is a json object and sends it to Azure IoT Hub
 
         Args:
@@ -34,7 +34,7 @@ class CloudConnection:
         """
 
         # Check if valid json if not, make it valid
-        
+
         self.device_client.send_message(json.dumps(message))
         # if messageId:
         #     print(f"messageId: {messageId} successfully sent")
