@@ -55,11 +55,11 @@ class DeviceManager:
                     modbus_connection()
                 if self.kind in can_kinds:
                     can_connection()
-                jot(True, generate_timestamp(), f'[{self.nickname}] {self.kind} Connection successful on attempt {i}')
+                self.jot(True, generate_timestamp(), f'[{self.nickname}] {self.kind} Connection successful on attempt {i}')
                 self.fault_flag = 0
                 return True
             except Exception as e:
-                jot(True, generate_timestamp(), f'[{self.nickname}] {self.kind} Connection unsuccessful due to {e}')
+                self.jot(True, generate_timestamp(), f'[{self.nickname}] {self.kind} Connection unsuccessful due to {e}')
                 sleep(sleeptimer)
         self.fault_flag = 1
         return False
@@ -86,9 +86,9 @@ class DeviceManager:
             if self.kind == 'modbus-sel':
                 self.current_data = modbus_sel.fetch_sel_dictionary(self.resource, self.client)
             if self.kind == 'pcan':
-                device.jot(True, timestamp(), f'[{self.nickname}] {self.kind} PCAN is meant to be used actively in the interpreter right now')
+                self.jot(True, timestamp(), f'[{self.nickname}] {self.kind} PCAN is meant to be used actively in the interpreter right now')
                 #to-do: make config file for autonomous CAN activity
         except Exception as e:
-            jot(True, generate_timestamp(), f'[{self.nickname}] {self.kind} [WARNING] Connection issue due to {e}, restoring...')
+            self.jot(True, generate_timestamp(), f'[{self.nickname}] {self.kind} [WARNING] Connection issue due to {e}, restoring...')
             self.client = None
             start_connection(self, attempts=1000, sleeptimer = .1)  
