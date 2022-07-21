@@ -17,9 +17,10 @@ two devices of a different kind will always have different connection method and
 However, all kinds will share some commonalities.
 '''
 class DeviceManager:
-    modbus_kinds = ["modbus-eaton", "modbus-sel"]
-    can_kinds = ["pcan"] #https://python-can.readthedocs.io/en/master/interfaces.html, https://python-can.readthedocs.io/en/master/interfaces/pcan.html, https://pypi.org/project/python-can/
     def __init__(self, kind, addr, port, logpath, nickname, resourcepath):
+        # ~~~constant identifiers~~~ #
+        self.modbus_kinds = ["modbus-eaton", "modbus-sel"]
+        self.can_kinds = ["pcan"] #https://python-can.readthedocs.io/en/master/interfaces.html, https://python-can.readthedocs.io/en/master/interfaces/pcan.html, https://pypi.org/project/python-can/
         # ~~~initializizers~~~ #
         self.kind = kind
         self.addr = addr #ip address or None
@@ -29,7 +30,7 @@ class DeviceManager:
         self.resourcepath = resourcepath
 
         # ~~~runtime derived~~~ #
-        self.log = open(f'{logpath}','a')
+        self.log = open(f'{logpath}.txt','a')
         self.client = None
         self.fault_flag = 0
         self.resource = None
@@ -51,9 +52,9 @@ class DeviceManager:
         #when we need to hurry and start it quickly, we can make it arbitarily short
         for i in range(0, attempts):
             try:
-                if self.kind in modbus_kinds:
+                if self.kind in self.modbus_kinds:
                     modbus_connection()
-                if self.kind in can_kinds:
+                if self.kind in self.can_kinds:
                     can_connection()
                 self.jot(True, generate_timestamp(), f'[{self.nickname}] {self.kind} Connection successful on attempt {i}')
                 self.fault_flag = 0
