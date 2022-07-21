@@ -4,7 +4,7 @@ import json
 class CloudConnection:
     modbus_kinds = ["modbus-eaton", "modbus-sel"]
     can_kinds = ["pcan"] #https://python-can.readthedocs.io/en/master/interfaces.html, https://python-can.readthedocs.io/en/master/interfaces/pcan.html, https://pypi.org/project/python-can/
-    def __init__(self, device_connection_string, sleep_timer, retry_timer, device_client):
+    def __init__(self, device_connection_string, sleep_timer, retry_timer, messageId):
         #self.device_connection_string = "HostName=bs-pi-poc.azure-devices.net;DeviceId=pi-clifton;SharedAccessKey=1Dbch6EdLTGfKX4kngXy9cgysrBxw9tKX1XnghrYiDs="
 
         # ~~~initializizers~~~ #
@@ -15,7 +15,6 @@ class CloudConnection:
 
         # ~~~runtime derived~~~ #
         self.device_client = None
-        
 
 
     def init_device_client(self):
@@ -29,7 +28,7 @@ class CloudConnection:
         self.device_client.connect()
 
 
-    def send_message_to_azure(self, message, messageId):
+    def send_message_to_azure(self, message):
         """Checks if the message is a json object and sends it to Azure IoT Hub
 
         Args:
@@ -43,7 +42,7 @@ class CloudConnection:
 
         self.device_client.send_message(json.dumps(message), self.messageId)
 
-        # if messageId:
-        #     print(f"messageId: {messageId} successfully sent")
-        # else:
-        #     print("Message successfully sent")
+        if self.messageId:
+            print(f"messageId: {self.messageId} successfully sent")
+        else:
+            print("Message successfully sent")

@@ -84,7 +84,7 @@ while device.fault_flag == 0:
             cloud.send_message_to_azure(d)
         except ConnectionError:
             counter = 0
-            while cloud.device_client.connected = False:
+            while cloud.device_client.connected is False:
                 device.jot(True, timestamp(), f'[{device.nickname}] {device.kind} [WARNING] Cloud service interruption due to ConnectionError. Restoring connection on attempt {counter}...')
                 sleep(cloud.retry_timer)
                 cloud.device_client.connect()
